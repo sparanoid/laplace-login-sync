@@ -29,6 +29,8 @@ interface GetBodyProps {
 
 const server = fastify({
   logger: true,
+  // 50 MB
+  bodyLimit: 1024 * 1024 * 50,
 })
 
 server.register(cors, {
@@ -43,7 +45,7 @@ server.get('/ping', async (request, reply) => {
   return 'pong'
 })
 
-server.post<{ Body: UpdateBodyProps }>(`${api_root}/update`, (request, reply) => {
+server.post<{ Body: UpdateBodyProps }>(`${api_root}/update`, async (request, reply) => {
   const { encrypted, uuid } = request.body;
 
   // none of the fields can be empty
@@ -62,7 +64,7 @@ server.post<{ Body: UpdateBodyProps }>(`${api_root}/update`, (request, reply) =>
     reply.send({ "action": "error" });
 });
 
-server.all<{ Body: GetBodyProps,  Params: GetParamsProps }>(`${api_root}/get/:uuid`, (request, reply) => {
+server.all<{ Body: GetBodyProps,  Params: GetParamsProps }>(`${api_root}/get/:uuid`, async (request, reply) => {
   const { uuid } = request.params
   if (!uuid) {
     reply.status(400).send('Bad Request');
