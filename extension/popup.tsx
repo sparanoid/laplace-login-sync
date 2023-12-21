@@ -15,7 +15,7 @@ function IndexPopup() {
     "endpoint": "https://login-sync.laplace.id",
     // "password": "",
     "password": String(short_uid.generate()),
-    "interval": 10,
+    "interval": 5,
     "domains": "bilibili.com",
     "uuid": String(short_uid.generate()),
     "type": "up",
