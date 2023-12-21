@@ -210,7 +210,7 @@ function IndexPopup() {
         <div className="flex flex-row justify-between mt-2">
           <div className="left text-gray-400">
             {data['type'] && data['type'] != 'pause' && <>
-              <Button className="mr-2" color="light" onClick={()=>test('手动同步')} disabled={isLoading}>强制同步</Button>
+              <Button className="mr-2" color="light" onClick={()=>test('手动同步')} disabled={isLoading}>立即同步登录状态</Button>
               <Button className="" color="light" onClick={()=>test('测试')} disabled={isLoading}>测试</Button>
             </>}
 
