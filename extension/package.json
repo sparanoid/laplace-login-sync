@@ -41,9 +41,9 @@
     "name": "__MSG_appTitle__",
     "default_locale": "zh_CN",
     "host_permissions": [
-      "https://*.bilibili.com",
-      "https://*.biliapi.net",
-      "https://login-sync.laplace.id"
+      "*://*.bilibili.com/",
+      "*://*.biliapi.net/",
+      "https://login-sync.laplace.id/"
     ],
     "permissions": [
       "cookies",

@@ -123,6 +123,8 @@ function IndexPopup() {
         {/* <div className="">工作模式</div> */}
         <h1 className="text-xl font-bold">LAPLACE Login Sync</h1>
 
+        <p>初次安装请确保网站已登录，然后点击「重新生成」以初始化，然后点击「保存设置」。同步周期 5 分钟</p>
+
         <div className="flex gap-2 my-2">
           <div className="flex gap-0.5">
             <input type="radio" id="up" name="working-method" value="up" checked={data['type'] === 'up'} onChange={e => onChange('type', e)} />
