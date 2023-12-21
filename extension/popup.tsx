@@ -58,7 +58,7 @@ function IndexPopup() {
     setIsLoading(false)
   }
 
-  async function save()
+  async function save(push: boolean)
   {
     if( !data['endpoint'] || !data['password'] || !data['uuid'] || !data['type'] )
     {
@@ -70,6 +70,7 @@ function IndexPopup() {
     console.log( "load", ret );
     if( JSON.stringify(ret) == JSON.stringify(data) )
     {
+      push && test('手动同步')
       alert('保存成功');
       window.close();
     }
@@ -123,7 +124,11 @@ function IndexPopup() {
         {/* <div className="">工作模式</div> */}
         <h1 className="text-xl font-bold">LAPLACE Login Sync</h1>
 
-        <p>初次安装请确保网站已登录，然后点击「重新生成」以初始化，然后点击「保存设置」。同步周期 5 分钟</p>
+        <p>初次安装请确保网站已登录，然后点击「保存并同步登录状态」。后台自动同步周期为 5 分钟</p>
+
+        {data['uuid'] && data['uuid'] === init['uuid'] && (
+          <div className="bg-orange-400 text-white p-2 my-2 rounded">尚未初始化同步，请点击「保存并同步登录状态」</div>
+        )}
 
         <div className="flex gap-2 my-2">
           <div className="flex gap-0.5">
@@ -156,7 +161,10 @@ function IndexPopup() {
           </div>
           <div className="right">
           <Button className="p-2 my-1 ml-2" onClick={() => copyToClipboard(`${data['uuid']}@${data['password']}`)}>拷贝密钥</Button>
-          <Button className="p-2 my-1 ml-2" color="red" onClick={() => loginSyncTokenGenerate()}>重新生成</Button>
+
+          {data['uuid'] !== init['uuid'] && (
+            <Button className="p-2 my-1 ml-2" color="red" onClick={() => loginSyncTokenGenerate()} disabled={isLoading}>重新生成</Button>
+          )}
           </div>
         </div>
 
@@ -212,13 +220,21 @@ function IndexPopup() {
         <div className="flex flex-row justify-between mt-2">
           <div className="left text-gray-400">
             {data['type'] && data['type'] != 'pause' && <>
-              <Button className="mr-2" color="light" onClick={()=>test('手动同步')} disabled={isLoading}>立即同步登录状态</Button>
+              <Button className="mr-2" color="light" onClick={()=>test('手动同步')} disabled={isLoading}>手动同步</Button>
               <Button className="" color="light" onClick={()=>test('测试')} disabled={isLoading}>测试</Button>
             </>}
 
           </div>
           <div className="right">
-            <Button className="" onClick={()=>save()}>保存设置</Button>
+            <Button
+              className=""
+              onClick={() => {
+                save(data['type'] && data['type'] == 'pause' ? false : true)
+              }}
+              disabled={isLoading}
+            >
+              {data['type'] && data['type'] == 'pause' ? '保存设置' : '保存并同步登录状态'}
+            </Button>
           </div>
         </div>
 
