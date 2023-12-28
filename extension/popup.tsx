@@ -124,16 +124,16 @@ function IndexPopup() {
         {/* <div className="">工作模式</div> */}
         {/* <h1 className="text-xl font-bold">LAPLACE Login Sync</h1> */}
 
-        <p>请确保 <a href={'https://www.bilibili.com'} target='_blank'>网站已登录</a>，然后点击「保存并同步」</p>
+        {/* <p className="mb-2">请确保 <a href={'https://www.bilibili.com'} target='_blank'>网站已登录</a>，然后点击「保存并同步」</p> */}
 
         {data['uuid'] && data['uuid'] === init['uuid'] && (
-          <div className="bg-orange-400 text-white p-2 my-2 rounded">尚未初始化同步，请点击「保存并同步」</div>
+          <div className="bg-orange-400 text-white p-2 mb-2 rounded">{chrome.i18n.getMessage('notInitialized')}</div>
         )}
 
-        <div className="flex gap-2 my-2">
+        <div className="flex gap-2 mb-2">
           <div className="flex gap-0.5">
             <input type="radio" id="up" name="working-method" value="up" checked={data['type'] === 'up'} onChange={e => onChange('type', e)} />
-            <label htmlFor="up">同步登录状态</label>
+            <label htmlFor="up">{chrome.i18n.getMessage('syncLoginSessions')}</label>
           </div>
 
           {/* <div className="flex gap-0.5">
@@ -143,7 +143,7 @@ function IndexPopup() {
 
           <div className="flex gap-0.5">
             <input type="radio" id="pause" name="working-method" value="pause" checked={data['type'] === 'pause'} onChange={e => onChange('type', e)} />
-            <label htmlFor="pause">暂停同步</label>
+            <label htmlFor="pause">{chrome.i18n.getMessage('pauseSyncing')}</label>
           </div>
         </div>
 
@@ -160,8 +160,8 @@ function IndexPopup() {
           <Input type="text" className="border-1  my-1 p-2 rounded w-full" placeholder="端对端用户密钥" value={`${data['uuid']}@${data['password']}`} readOnly />
           </div>
           <div className="right">
-          <Button className="p-2 my-1 ml-2" onClick={() => copyToClipboard(`${data['uuid']}@${data['password']}`)}>拷贝密钥</Button>
-          <Button className="ml-2" color="red" onClick={()=>setData(init)} disabled={isLoading}>重置</Button>
+          <Button className="p-2 my-1 ml-2" onClick={() => copyToClipboard(`${data['uuid']}@${data['password']}`)}>{chrome.i18n.getMessage('copyToken')}</Button>
+          <Button className="ml-2" color="red" onClick={()=>setData(init)} disabled={isLoading}>{chrome.i18n.getMessage('reset')}</Button>
 
           {/* {data['uuid'] !== init['uuid'] && (
             <Button className="p-2 my-1 ml-2" color="red" onClick={() => loginSyncTokenGenerate()} disabled={isLoading}>重新生成</Button>
@@ -216,7 +216,9 @@ function IndexPopup() {
         </>}
 
         {data['type'] && data['type'] == 'pause' && <>
-        <div className="bg-orange-400 text-white p-2 my-2 rounded">登录状态同步已暂停</div>
+        <div className="bg-orange-400 text-white p-2 my-2 rounded">
+          {chrome.i18n.getMessage('loginSyncPaused')}
+        </div>
         </>}
         <div className="flex flex-row justify-between mt-2">
           <div className="left text-gray-400">
@@ -235,7 +237,7 @@ function IndexPopup() {
               }}
               disabled={isLoading}
             >
-              {data['type'] && data['type'] == 'pause' ? '保存设置' : '保存并同步'}
+              {data['type'] && data['type'] == 'pause' ? chrome.i18n.getMessage('save') : chrome.i18n.getMessage('saveAndSync')}
             </Button>
           </div>
         </div>
