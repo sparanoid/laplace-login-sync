@@ -42,7 +42,6 @@
     "default_locale": "zh_CN",
     "host_permissions": [
       "*://*.bilibili.com/",
-      "*://*.biliapi.net/",
       "https://login-sync.laplace.id/"
     ],
     "permissions": [

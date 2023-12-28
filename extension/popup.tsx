@@ -72,7 +72,7 @@ function IndexPopup() {
     {
       push && test('手动同步')
       alert('保存成功');
-      window.close();
+      // window.close();
     }
   }
 
@@ -122,12 +122,12 @@ function IndexPopup() {
     <div className="form p-3">
       <div className="text-line text-gray-700 dark:text-neutral-300">
         {/* <div className="">工作模式</div> */}
-        <h1 className="text-xl font-bold">LAPLACE Login Sync</h1>
+        {/* <h1 className="text-xl font-bold">LAPLACE Login Sync</h1> */}
 
-        <p>初次安装请确保网站已登录，然后点击「保存并同步登录状态」。后台自动同步周期为 5 分钟</p>
+        <p>请确保 <a href={'https://www.bilibili.com'} target='_blank'>网站已登录</a>，然后点击「保存并同步」</p>
 
         {data['uuid'] && data['uuid'] === init['uuid'] && (
-          <div className="bg-orange-400 text-white p-2 my-2 rounded">尚未初始化同步，请点击「保存并同步登录状态」</div>
+          <div className="bg-orange-400 text-white p-2 my-2 rounded">尚未初始化同步，请点击「保存并同步」</div>
         )}
 
         <div className="flex gap-2 my-2">
@@ -143,7 +143,7 @@ function IndexPopup() {
 
           <div className="flex gap-0.5">
             <input type="radio" id="pause" name="working-method" value="pause" checked={data['type'] === 'pause'} onChange={e => onChange('type', e)} />
-            <label htmlFor="pause">暂停</label>
+            <label htmlFor="pause">暂停同步</label>
           </div>
         </div>
 
@@ -154,17 +154,18 @@ function IndexPopup() {
         {data['type'] && data['type'] != 'pause' && <>
         {/* <div className="">服务器地址</div>
         <input type="text" className="border-1  my-2 p-2 rounded w-full" placeholder="请输入服务器地址" value={data['endpoint']} onChange={e=>onChange('endpoint',e)} /> */}
-        <div className="">同步密钥</div>
+        {/* <div className="">同步密钥</div> */}
         <div className="flex flex-row">
           <div className="left flex-1">
           <Input type="text" className="border-1  my-1 p-2 rounded w-full" placeholder="端对端用户密钥" value={`${data['uuid']}@${data['password']}`} readOnly />
           </div>
           <div className="right">
           <Button className="p-2 my-1 ml-2" onClick={() => copyToClipboard(`${data['uuid']}@${data['password']}`)}>拷贝密钥</Button>
+          <Button className="ml-2" color="red" onClick={()=>setData(init)} disabled={isLoading}>重置</Button>
 
-          {data['uuid'] !== init['uuid'] && (
+          {/* {data['uuid'] !== init['uuid'] && (
             <Button className="p-2 my-1 ml-2" color="red" onClick={() => loginSyncTokenGenerate()} disabled={isLoading}>重新生成</Button>
-          )}
+          )} */}
           </div>
         </div>
 
@@ -215,13 +216,14 @@ function IndexPopup() {
         </>}
 
         {data['type'] && data['type'] == 'pause' && <>
-        <div className="bg-orange-400 text-white p-2 my-2 rounded">暂停登录状态同步</div>
+        <div className="bg-orange-400 text-white p-2 my-2 rounded">登录状态同步已暂停</div>
         </>}
         <div className="flex flex-row justify-between mt-2">
           <div className="left text-gray-400">
             {data['type'] && data['type'] != 'pause' && <>
-              <Button className="mr-2" color="light" onClick={()=>test('手动同步')} disabled={isLoading}>手动同步</Button>
-              <Button className="" color="light" onClick={()=>test('测试')} disabled={isLoading}>测试</Button>
+              {/* <Button className="mr-2" color="light" onClick={()=>test('手动同步')} disabled={isLoading}>手动同步</Button> */}
+              {/* <Button className="mr-2" color="red" onClick={()=>setData(init)} disabled={isLoading}>重置密钥</Button> */}
+              {/* <Button className="" color="light" onClick={()=>test('测试')} disabled={isLoading}>测试</Button> */}
             </>}
 
           </div>
@@ -233,20 +235,21 @@ function IndexPopup() {
               }}
               disabled={isLoading}
             >
-              {data['type'] && data['type'] == 'pause' ? '保存设置' : '保存并同步登录状态'}
+              {data['type'] && data['type'] == 'pause' ? '保存设置' : '保存并同步'}
             </Button>
           </div>
         </div>
 
         <hr className="my-3" />
 
-        <div className="flex gap-2">
+        {/* <div className="flex gap-2">
           <a href={'https://www.bilibili.com'} target='_blank'>访问哔哩哔哩</a>
           <a href={'https://chat.laplace.live'} target="_blank">访问 LAPLACE Chat</a>
-        </div>
+        </div> */}
 
         <div className="text-gray-500 dark:text-neutral-400">
-          <p>Brought to you by <a href={'https://chat.laplace.live'} target="_blank">LAPLACE</a>, based on <a href={'https://github.com/easychen/CookieCloud'} target="_blank">CookieCloud</a></p>
+          {/* <p><a href={'https://chat.laplace.live'} target="_blank">LAPLACE Login Sync</a>, based on <a href={'https://github.com/easychen/CookieCloud'} target="_blank">CookieCloud</a></p> */}
+          <p>Brought to you by <a href={'https://laplace.live'} target="_blank">LAPLACE</a>, based on <a href={'https://github.com/easychen/CookieCloud'} target="_blank">CookieCloud</a></p>
           <p>Make the web fun again</p>
         </div>
 
